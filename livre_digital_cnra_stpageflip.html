@@ -662,6 +662,11 @@
             .zoom-controls {
                 justify-content: center;
             }
+
+            /* Masquer le sélecteur de mode de lecture sur téléphone */
+            .reading-mode {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -1273,6 +1278,20 @@
                 updateZoomButtons();
                 initializeDraggable();
                 initializeVideoHandlers();
+
+                const isPhone = window.innerWidth <= 480;
+                if (isPhone) {
+                    const readingModeContainer = document.querySelector('.reading-mode');
+                    if (readingModeContainer) {
+                        readingModeContainer.style.display = 'none';
+                    }
+                    const modeSelector = document.getElementById('readingMode');
+                    if (modeSelector) {
+                        modeSelector.value = 'portrait';
+                    }
+                    currentReadingMode = 'portrait';
+                    switchToPortraitMode();
+                }
             }, 1500);
         });
 
